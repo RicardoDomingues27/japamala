@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Text } from 'react-native';
 
 export default function SwitchTheme(){
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
 
     const getData = async() =>{
         try{
@@ -20,19 +21,21 @@ export default function SwitchTheme(){
                   default:  
                       navigation.navigate('ThemeColors');    
                 }
+            }else{
+              navigation.navigate('ThemeColors'); 
             }
         }catch(e){
             Alert.alert("Error: ",e)
         }
       }
+
     useEffect(()=>{
-        console.log('chamou o getData')
-        getData();
-    },[]);
+      if(isFocused){
+          getData();
+      }
+    },[isFocused])
     
     return (
-        <>
-
-        </>
+        <Text> Carregando tema</Text>
     );
 }

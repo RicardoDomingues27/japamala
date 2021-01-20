@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import {   Image, StyleSheet, Text,  Vibration, View } from 'react-native';
 import { Dimensions } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
-import SelectTheme from '../SelectThemeButton';
+import SelectThemeButton from '../SelectThemeButton';
+import TimerField from '../TimerField';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -16,17 +17,20 @@ type Props = {
 export default function Counter({vibrationOn, theme} : Props){
     const [counter, setCounter] = useState(0);
     const [vibration, setVibration] = useState(vibrationOn);
-    
+    const [startTime, setStartTime] = useState(false);
+    const [stopTime, setStopTime] = useState(false);
+
     var [ isPress, setIsPress ] = React.useState(false);
     const ONE_SECOND_IN_MS = 1000;
 
     const handleSumCounter = (counter: number) =>{
         if(counter < 10) {
             setCounter(counter+1);
-            vibration ? Vibration.vibrate() : '';
-           
+            vibration ? Vibration.vibrate() : '';     
+            !startTime ? setStartTime(true): '';      
         }else{            
             Vibration.vibrate(2 * ONE_SECOND_IN_MS);
+            !stopTime ? setStopTime(true): '';   
         }
     }
     var touchProps = {
@@ -41,6 +45,7 @@ export default function Counter({vibrationOn, theme} : Props){
     return(
         <>
             <View style={styles.container}>
+                <TimerField onStart={startTime} onStop={stopTime}/>
                 <Text style={styles.counter}>{counter}</Text>
                 <TouchableHighlight              
                     {...touchProps}>
@@ -48,7 +53,8 @@ export default function Counter({vibrationOn, theme} : Props){
                         source={require('../../assets/imageButtonJapamala.png')} 
                         style={styles.imageButtonJapamala} />
                 </TouchableHighlight> 
-                <SelectTheme theme={theme} />                
+                <SelectThemeButton theme={theme} />     
+                          
             </View>
             
         </>    
