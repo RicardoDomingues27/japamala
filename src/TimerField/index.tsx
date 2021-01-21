@@ -6,30 +6,22 @@ type Props = {
     onStart: boolean;
     onStop: boolean;
 }
+var increment: ReturnType<typeof setTimeout> ;
 
 export default function TimerField({onStart, onStop}: Props ){
   const [timer, setTimer] = useState(0);
   const [startedTimer, setStartedTime] = useState(false);
   const [stopedTimer, setStopedTime] = useState(false);
 
-
-  var increment: NodeJS.Timeout | null = null;
-
   const handleStart = () => { 
     onStart = false;
     console.log(onStart);
-    increment = setInterval(() => {
+    increment  = setInterval(() => {
       setTimer((timer) => timer + 1)
-    }, 1000)
-    
+    }, 1000)    
   }
   const handlePause = () => {
-    console.log('handlePause ok ['+increment+']')
-    if (increment != null) {
-      console.log('handlePause ok')
-      clearInterval(increment);
-      increment = null;
-    }
+    (increment !== null)&&(clearInterval(increment))
   }
 
   const formatTime = () => {
@@ -48,10 +40,8 @@ export default function TimerField({onStart, onStop}: Props ){
     }
     if(!stopedTimer && onStop){
       setStopedTime(onStop);
-      console.log('pausando o timer');
       handlePause();
-    }
-    
+    }    
   });  
 
   return (

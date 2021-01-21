@@ -53,8 +53,6 @@ export default function Counter({vibrationOn, theme} : Props){
                         source={require('../../assets/imageButtonJapamala.png')} 
                         style={styles.imageButtonJapamala} />
                 </TouchableHighlight> 
-                <SelectThemeButton theme={theme} />     
-                          
             </View>
             
         </>    
