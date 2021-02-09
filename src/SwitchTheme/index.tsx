@@ -30,6 +30,7 @@ export default function SwitchTheme(){
       }
 
     useEffect(()=>{
+      console.log("focou.");
       if(isFocused){
           getData();
       }

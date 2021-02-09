@@ -1,27 +1,33 @@
 import React from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, Dimensions, StyleSheet, View } from 'react-native';
 import { FloatingMenu } from 'react-native-floating-action-menu';
 import { Image } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBars, faCheckSquare, faCoffee, faTimes, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAirFreshener, faBars, faCheckSquare, faCoffee, faTimes, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+const screenHeight = Dimensions.get('window').height;
 
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 // Specify data required to render the icon
 const items = [
     {
       label: 'Black',
-      icon: faUserPlus
+      icon: faAirFreshener,
+
     },
     {
       label: 'White',
       icon: faUserPlus
     },
+    {
+      label: 'Colors',
+      icon: faUserPlus
+    },
   ];
   // Optional color to be silly
-  const primaryColor = '#09f';
-  const colorOptions = ['#F53B57', '#3D40C6', '#10BCF9', '#00D8D6', '#04C56B'];
+  const primaryColor = '#fff';
+  const colorOptions = ['#fff', '#3D40C6', '#10BCF9', '#00D8D6', '#04C56B'];
   //const navigation = useNavigation();
  
 class FabButton extends React.Component<NavigationInjectedProps> {
@@ -29,24 +35,25 @@ class FabButton extends React.Component<NavigationInjectedProps> {
         noIcons: false,
         isMenuOpen: false,
         numItemsToShow: 3,
-        activeColor: colorOptions[1],
+        activeColor: colorOptions[0],
        
       };
     
   handleMenuToggle = (isMenuOpen: any) =>
-    this.setState({ isMenuOpen });
+    this.setState({ isMenuOpen: isMenuOpen });
  
 
   
   saveTheme = async  (theme: string) =>{
       try{
           await AsyncStorage.setItem('@theme', theme);
-          console.log()
+          console.log(theme);
+          this.setState({ isMenuOpen: false });
           switch(theme) {
-              case 'white':  
+              case 'White':  
                   this.props.navigation.navigate('ThemeWhite');
                 break;
-              case 'black':
+              case 'Black':
                   this.props.navigation.navigate('ThemeBlack');
                 break;
               default:  
@@ -116,6 +123,14 @@ class FabButton extends React.Component<NavigationInjectedProps> {
           onMenuToggle={this.handleMenuToggle}
           onItemPress={this.handleItemPress}
           renderItemIcon={!noIcons ? this.renderItemIcon : null}
+          borderColor='#03a9f4'
+          backgroundUpColor='#03a9f4'
+          backgroundDownColor='#007ac1'
+          iconColor='#fff'
+          bottom={120}
+          position="bottom-right"
+          dimmerStyle={dimmers.dimmer}
+          buttonWidth={53}
         />
       
     );
@@ -130,4 +145,20 @@ const styles = StyleSheet.create({
   },
 });
  
+const dimmers = StyleSheet.create({
+  dimmer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 6,
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#ffffffdd',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})
 export default withNavigation(FabButton);
