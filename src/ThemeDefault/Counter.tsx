@@ -3,34 +3,37 @@ import {   Image, StyleSheet, Text,  Vibration, View } from 'react-native';
 import { Dimensions } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
-import SelectThemeButton from '../SelectThemeButton';
-import TimerField from '../TimerField';
+import TimerField from './TimerField';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 type Props = {
-    vibrationOn: boolean;
-    theme: string;
+    onVibration: boolean;
+    onTheme: string;
 }
 
-export default function Counter({vibrationOn, theme} : Props){
+export default function Counter({onVibration, onTheme} : Props){
     const [counter, setCounter] = useState(0);
-    const [vibration, setVibration] = useState(vibrationOn);
+    
     const [startTime, setStartTime] = useState(false);
     const [stopTime, setStopTime] = useState(false);
 
     var [ isPress, setIsPress ] = React.useState(false);
+    
     const ONE_SECOND_IN_MS = 1000;
 
     const handleSumCounter = (counter: number) =>{
-        if(counter < 10) {
+        console.log("Vibration está ativo: "+onVibration)
+       
+        if(counter < 50) {
             setCounter(counter+1);
-            vibration ? Vibration.vibrate() : '';     
+            onVibration ? Vibration.vibrate(80) : '';     
             !startTime ? setStartTime(true): '';      
         }else{            
-            Vibration.vibrate(2 * ONE_SECOND_IN_MS);
-            !stopTime ? setStopTime(true): '';   
+            Vibration.vibrate(1200);
+            !stopTime ? setStopTime(true): '';  
+            setCounter(0);
         }
     }
     var touchProps = {
@@ -44,7 +47,7 @@ export default function Counter({vibrationOn, theme} : Props){
 
     return(
         <>
-            <View style={styles.container}>
+            <View style={(onTheme == 'Black') ? styles.containerBlack : styles.container}>
                 <TimerField onStart={startTime} onStop={stopTime}/>
                 <Text style={styles.counter}>{counter}</Text>
                 <TouchableHighlight              
@@ -62,11 +65,18 @@ export default function Counter({vibrationOn, theme} : Props){
 const styles = StyleSheet.create({
     container:{
         width: screenWidth,
-        height: screenHeight- 200,
+        height: screenHeight,
         backgroundColor: '#fff',
         justifyContent: 'flex-start',
         alignItems: 'center',
       
+    },
+    containerBlack:{
+        width: screenWidth,
+        height: screenHeight,
+        backgroundColor: '#000',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     },
     counter:{
         fontFamily: 'OpenSans_700Bold',

@@ -1,7 +1,14 @@
 
-import { AdMobBanner } from 'expo-ads-admob';
+import {
+    AdMobBanner,
+    AdMobInterstitial,
+    PublisherBanner,
+    AdMobRewarded,
+    setTestDeviceIDAsync,
+  } from 'expo-ads-admob';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
+
 
 const screenHeight = Dimensions.get('window').height;
 

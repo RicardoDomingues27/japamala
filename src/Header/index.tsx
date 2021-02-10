@@ -3,16 +3,16 @@ import React from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 
 type Props ={
-    theme: string;
+    onTheme: string;
 }
-export default function Header({theme}: Props){
+export default function Header({onTheme}: Props){
     const selectTheme = (theme: string) =>{
         
         switch(theme){
-            case 'black':
+            case 'Black':
                 return styles.containerBlack;
                 break;
-            case 'white':
+            case 'White':
                 return styles.containerWhite;
                 break;
             default:
@@ -21,7 +21,7 @@ export default function Header({theme}: Props){
     }
     return(
         <View 
-            style={selectTheme(theme)}           >
+            style={selectTheme(onTheme)}           >
             <Text style={styles.text}>Japamala</Text>
         </View>
     );
