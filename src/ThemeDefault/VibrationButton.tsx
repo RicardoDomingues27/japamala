@@ -6,19 +6,19 @@ import { Alert } from "react-native";
 import { Vibration } from "react-native";
 import { TouchableOpacity , Image , StyleSheet ,Dimensions} from "react-native";
 
-const screenHeight = Dimensions.get('window').height;
+const screenHeight = Dimensions.get('screen').height;
 type Props = {
     onVibration: (vibration: boolean) => void;
 }
 
-export default function RoundIconButton({onVibration}: Props){
+export default function VibrationButton({onVibration}: Props){
     const [vibration, setVibration] = useState(true);
     const isFocused = useIsFocused();
     
     const getVibration = async() =>{
         try{
             const vibration = await AsyncStorage.getItem('@vibration');
-            console.log('carregou vibration: '+ vibration)
+            
             if(vibration !== null) {    
                 let vibrationState = JSON.parse(vibration)      ;
                 setVibration(vibrationState)
@@ -35,7 +35,7 @@ export default function RoundIconButton({onVibration}: Props){
   const saveVibration = async  (vibrationData: boolean) =>{
     try{
         await AsyncStorage.setItem('@vibration', JSON.stringify(vibrationData));
-        console.log(vibrationData + " Gravado no dispostivo");        
+        
     }catch(e){
         Alert.alert("Error: ", e);
     }
@@ -68,7 +68,7 @@ export default function RoundIconButton({onVibration}: Props){
 const styles = StyleSheet.create({
     button:{
         position: 'absolute',
-        marginTop: screenHeight-127,
+        bottom: 70,
         marginLeft:10,
         padding:5,
         width: 55,
@@ -77,10 +77,11 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         transform: [{ rotate: '-30deg' }],
         
+        zIndex:1
     },
     buttonDisable:{
         position: 'absolute',
-        marginTop: screenHeight-127,
+        bottom:70,
         marginLeft:10,
         padding:5,
         width: 55,
@@ -89,7 +90,8 @@ const styles = StyleSheet.create({
         
         borderRadius: 100,
         transform: [{ rotate: '-60deg' }],
-        elevation: 1,
+        
+        zIndex:1
     }
 
 });

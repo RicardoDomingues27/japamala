@@ -7,7 +7,7 @@ import FabButton from './FabButton';
 import { Alert } from 'react-native';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import RoundIconButton from './RoundIconButton';
+import VibrationButton from './VibrationButton';
 
 export default function ThemeDefault(){
     const isFocused = useIsFocused();
@@ -17,7 +17,7 @@ export default function ThemeDefault(){
     const getTheme = async() =>{
         try{
             const theme = await AsyncStorage.getItem('@theme');
-            console.log('carregou tema: '+ theme)
+            
             if(theme !== null) {               
                 switch(theme) {
                   case 'White':  
@@ -38,7 +38,7 @@ export default function ThemeDefault(){
       }
 
     useEffect(()=>{
-      console.log("focou.");
+      
       if(isFocused){
         getTheme();
       }
@@ -46,11 +46,9 @@ export default function ThemeDefault(){
 
 
     const handleChangeTheme = (t: string) =>{
-        console.log('Alterou tema para '+t)
         setTheme(t);
     }
     const handleOnVibration = (v: boolean) =>{
-        console.log("Vibration : "+v);
         setVibration(v);
     }
 
@@ -60,7 +58,7 @@ export default function ThemeDefault(){
             <Header onTheme={theme} />           
             <Counter onVibration={vibration} onTheme ={theme}/>
             <FabButton onTheme={handleChangeTheme}/>
-            <RoundIconButton onVibration={handleOnVibration}/>
+            <VibrationButton onVibration={handleOnVibration}/>
             <Footer />
         </>
     );

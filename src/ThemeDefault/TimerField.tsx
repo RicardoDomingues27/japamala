@@ -1,29 +1,43 @@
 import React, { useState , useRef, useEffect} from 'react';
-import { Text, View } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { Dimensions } from 'react-native';
+import { Text, TouchableOpacity ,StyleSheet} from 'react-native';
+
+
+const screenWidth = Dimensions.get('window').width;
+
 
 type Props = {
     onStart: boolean;
     onStop: boolean;
+    onReset: () => void;
 }
 var increment: ReturnType<typeof setTimeout> ;
 
-export default function TimerField({onStart, onStop}: Props ){
+export default function TimerField({onStart, onStop, onReset}: Props ){
   const [timer, setTimer] = useState(0);
   const [startedTimer, setStartedTime] = useState(false);
   const [stopedTimer, setStopedTime] = useState(false);
 
   const handleStart = () => { 
-    onStart = false;
-    console.log(onStart);
+    onStart = false;    
     increment  = setInterval(() => {
       setTimer((timer) => timer + 1)
     }, 1000)    
   }
   const handlePause = () => {
+    console.log('reset timer '+formatTime() +' = '+ increment);
     (increment !== null)&&(clearInterval(increment))
+    setStopedTime(false);
+    setStartedTime(false);
+    onStop = false;
+    onStart = false;
   }
 
+  const handleReset = () => {
+    handlePause();
+    onReset();
+    setTimer(0);
+  }
   const formatTime = () => {
     const getSeconds = `0${(timer % 60)}`.slice(-2);
     const minutes = Math.floor(timer / 60);
@@ -34,21 +48,42 @@ export default function TimerField({onStart, onStop}: Props ){
   }
 
   useEffect(() =>{
-    if(!startedTimer && onStart){
-      setStartedTime(onStart);
+    
+    if(startedTimer == false && onStart == true){
+      setTimer(0)
+      setStartedTime(true);
       handleStart();
     }
-    if(!stopedTimer && onStop){
-      setStopedTime(onStop);
+    if(stopedTimer == false && onStop == true){      
       handlePause();
     }    
   });  
 
   return (
-      <View>
-          <Text>{formatTime()}</Text>
-          
-      </View>
+      <TouchableOpacity 
+        style={styles.timer}
+        onPress={handleReset}>
+          <Text style={{fontSize:14 ,fontWeight:'700', elevation:5}}>{formatTime()}</Text>          
+      </TouchableOpacity>
   )
   
 }
+
+const styles = StyleSheet.create({
+  timer:{     
+    
+    marginTop:-70,   
+    marginLeft:screenWidth-105,
+    width:120,
+    height:40,
+    backgroundColor:'#fff',
+    padding: 5,
+    paddingLeft:15,
+    zIndex:1,
+    
+    borderRadius:30,
+    borderWidth:4,
+    borderColor:'#ccc'
+}
+});
+

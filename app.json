@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#f00"
+      "backgroundColor": "#fff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511" 
+        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
       }
     },
     "android": {
@@ -28,8 +28,9 @@
         "backgroundColor": "#f00"
       },
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~3347511713" 
-      }
+        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~3347511713"
+      },
+      "package": "com.ricardodomingues27.frontmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"

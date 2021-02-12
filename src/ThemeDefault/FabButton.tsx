@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAirFreshener, faBars, faCheckSquare, faCoffee, faTimes, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const screenHeight = Dimensions.get('window').height;
+const screenHeight = Dimensions.get('screen').height;
 
 // Specify data required to render the icon
 const items = [
@@ -22,7 +22,7 @@ const items = [
     },
     {
       label: 'Colors',
-      image: require('../../assets/imageButtonJapamala.png'),
+      image: require('../../assets/imageButtonJapamalaColors.png'),
       
     },
   ];
@@ -142,7 +142,7 @@ class FabButton extends React.Component<Props>{
           backgroundUpColor='#03a9f4'
           backgroundDownColor='#ccc'
           iconColor='#f00000'
-          bottom={120}
+          bottom={70}
           right={20}
           position="bottom-right"
           dimmerStyle={dimmers.dimmer}
@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'relative',
+
   },
 });
  
@@ -171,6 +172,7 @@ const dimmers = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 6,
+    
     width: '100%',
     height: '100%',
     backgroundColor: '#ffffffdd',
