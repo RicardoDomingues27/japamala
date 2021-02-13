@@ -8,11 +8,13 @@ import { Alert } from 'react-native';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import VibrationButton from './VibrationButton';
+import TimerButton from './TimerButton';
 
 export default function ThemeDefault(){
     const isFocused = useIsFocused();
     const [theme, setTheme] = useState('colors');
     const [vibration, setVibration] = useState(true);
+    const [timer, setTimer] = useState(true);
 
     const getTheme = async() =>{
         try{
@@ -40,25 +42,29 @@ export default function ThemeDefault(){
     useEffect(()=>{
       
       if(isFocused){
-        getTheme();
+        //getTheme();
+        setTheme('White');
       }
     },[isFocused])   
 
 
-    const handleChangeTheme = (t: string) =>{
-        setTheme(t);
+    const handleChangeTheme = (theme: string) =>{
+        setTheme(theme);
     }
-    const handleOnVibration = (v: boolean) =>{
-        setVibration(v);
+    const handleOnVibration = (vibration: boolean) =>{
+        setVibration(vibration);
     }
-
+    const handleOnTimer = (timer: boolean) =>{
+      setTimer(timer);
+  }
+    //<FabButton onTheme={handleChangeTheme}/>
     return(
         <>
              
             <Header onTheme={theme} />           
-            <Counter onVibration={vibration} onTheme ={theme}/>
-            <FabButton onTheme={handleChangeTheme}/>
+            <Counter onVibration={vibration} onTheme ={theme} onTimer={timer}/>            
             <VibrationButton onVibration={handleOnVibration}/>
+            <TimerButton onTimer={handleOnTimer}/>
             <Footer />
         </>
     );

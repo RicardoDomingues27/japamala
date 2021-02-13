@@ -70,17 +70,15 @@ export default function TimerField({onStart, onStop, onReset}: Props ){
 }
 
 const styles = StyleSheet.create({
-  timer:{     
-    
-    marginTop:-70,   
+  timer:{         
+    marginTop:-60,   
     marginLeft:screenWidth-105,
     width:120,
     height:40,
     backgroundColor:'#fff',
     padding: 5,
     paddingLeft:15,
-    zIndex:1,
-    
+    zIndex:1,    
     borderRadius:30,
     borderWidth:4,
     borderColor:'#ccc'

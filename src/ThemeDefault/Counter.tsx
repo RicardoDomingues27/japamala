@@ -1,21 +1,28 @@
 import React, {  useState } from 'react';
 import {   Image, StyleSheet, Text,  Vibration, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import { Dimensions } from 'react-native';
+import { Dimensions , PixelRatio} from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
 import TimerField from './TimerField';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
-let heightImage = 400;
+
+var FONT_BACK_LABEL   = 62;
+
+if (PixelRatio.get() <= 2) {
+  FONT_BACK_LABEL = 60;
+}
+
 
 type Props = {
     onVibration: boolean;
     onTheme: string;
+    onTimer: boolean;
 }
 
-export default function Counter({onVibration, onTheme} : Props){
+export default function Counter({onVibration, onTheme, onTimer} : Props){
     const [counter, setCounter] = useState(0);
     
     const [startTime, setStartTime] = useState(false);
@@ -71,13 +78,15 @@ export default function Counter({onVibration, onTheme} : Props){
                         </View>     );
                 break;
             case 'White':                
-                return (<View style={styles.containerBlack}>                
-                            <Text style={styles.counter}>{counter}</Text>
+                return (<View style={styles.containerWhite}> 
                             <TouchableHighlight              
-                                {...touchProps}>
+                                {...touchProps}>         
+                                <View>     
+                                <Text style={styles.counterBlack}>{counter}</Text>                            
                                 <Image
                                     source={require('../../assets/imageButtonJapamalaWhite.png')} 
-                                    style={styles.imageButtonJapamalaBlack} />
+                                    style={styles.imageButtonJapamalaWhite} />
+                                </View>     
                             </TouchableHighlight>
                         </View>     );
                 break;
@@ -96,7 +105,7 @@ export default function Counter({onVibration, onTheme} : Props){
     
     return(
         <>
-            <TimerField  onStart={startTime} onStop={stopTime} onReset={handleResetTimer}/>
+            {onTimer ? <TimerField  onStart={startTime} onStop={stopTime} onReset={handleResetTimer}/>: false}            
             {selectTheme(onTheme)}
         </>    
     );
@@ -107,8 +116,7 @@ const styles = StyleSheet.create({
         width: screenWidth,
         height: screenHeight,
         justifyContent: 'flex-start',
-        alignItems: 'center',
-      
+        alignItems: 'center',      
         zIndex:1
     },
     containerBlack:{
@@ -120,12 +128,15 @@ const styles = StyleSheet.create({
         zIndex:1
     },
     containerWhite:{
+        position: 'absolute',
+        marginTop:170,
         width: screenWidth,
-        height: screenHeight,
-        
+        height: screenHeight,        
         justifyContent: 'flex-start',
         alignItems: 'center',
-        zIndex:1
+        zIndex:1,
+        backgroundColor:'#A6CFD5'
+        
     },
     counter:{
         fontFamily: 'OpenSans_400Regular',
@@ -137,26 +148,38 @@ const styles = StyleSheet.create({
     counterBlack:{
         position:'absolute',
         fontFamily: 'OpenSans_400Regular',
-        marginTop: 300,
-        fontSize:90,
-        color: '#fff',
-        zIndex:2
+        marginTop: 175,
+        marginLeft: (screenWidth/2)-20,
+        fontSize:FONT_BACK_LABEL,
+        color: '#444',
+        zIndex:2,
+        backgroundColor:'#fff',
+        width:140,
+        height:140,
+        paddingTop:20,
+        textAlign: 'center',
+        borderRadius:70,
+        borderWidth:3,
+        borderColor:'#769397',
+        overflow:'hidden'
+
     },
     touchIsNotPress:{        
         marginTop: 0,
         width:screenWidth,
-        height: heightImage ,
-        justifyContent: 'flex-start',
+        height: 500 ,
+        justifyContent: 'center',
         alignItems: 'center',
-        
+        zIndex:1
     },
     touchIsPress:{
         marginTop: 0,
         width:screenWidth,
-        height: heightImage,
-        justifyContent: 'flex-start',
+        height: 500,
+        justifyContent: 'center',
         alignItems: 'center',
-        opacity: 0.5
+        opacity: 0.5,
+        zIndex:1
     },
     imageButtonJapamala:{
         width: screenWidth-80,
@@ -172,6 +195,14 @@ const styles = StyleSheet.create({
         zIndex:0
         
     },
+    imageButtonJapamalaWhite:{
+        marginTop:0,
+        width: screenWidth +100,
+        height:screenWidth +100,
+        
+        bottom:0,
+        zIndex:0
+    }
     
     
     

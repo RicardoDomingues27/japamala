@@ -29,7 +29,7 @@ export default function Header({onTheme}: Props){
                 return ['#000', '#ffffff'];
                 break;
             case 'White':                
-                return ['#D6C4AE', '#ffffff'];
+                return ['#A6CFD5', '#A6CFD5'];
                 break;
             default:
                 return ['#077CE9', '#ffffff'];    
@@ -39,7 +39,7 @@ export default function Header({onTheme}: Props){
     return(
         <LinearGradient colors={selectColor(onTheme)}
             style={selectTheme(onTheme)}           >
-            <Text style={onTheme == 'Black' ? styles.textForBlack :styles.text}>Japamala</Text>
+            <Text style={onTheme != 'Colors' ? styles.textForBlack :styles.text}>Japamala</Text>
         </LinearGradient>
     );
 }
@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenSans_700Bold',
     },
     textForBlack:{
-        marginTop:30,
+        marginTop:48,
         fontSize:30,
         color: '#fff',
-        fontFamily: 'OpenSans_700Bold',
+        fontFamily: 'OpenSans_400Regular',
     },
     theme:{
 

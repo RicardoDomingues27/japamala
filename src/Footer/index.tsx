@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         position:'absolute',
         bottom:0,
         width: screenWidth,
-        zIndex:0
+        zIndex:2
         
 
         
