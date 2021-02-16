@@ -12,7 +12,7 @@ import TimerButton from './TimerButton';
 
 export default function ThemeDefault(){
     const isFocused = useIsFocused();
-    const [theme, setTheme] = useState('Colors');
+    const [theme, setTheme] = useState('White');
     const [vibration, setVibration] = useState(true);
     const [timer, setTimer] = useState(true);
 

@@ -41,7 +41,7 @@ export default function VibrationButton({onVibration}: Props){
     }
 }     
     useEffect(()=>{
-      console.log("focou.");
+      
       if(isFocused){
         getVibration();
       }

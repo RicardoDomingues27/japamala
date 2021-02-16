@@ -1,20 +1,14 @@
-import React, {  useState } from 'react';
-import {   Image, StyleSheet, Text,  Vibration, View } from 'react-native';
+import React, {  useEffect, useState } from 'react';
+import {   Platform , Image, StyleSheet, Text,  Vibration, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { Dimensions , PixelRatio} from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+
 
 import TimerField from './TimerField';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
-
-var FONT_BACK_LABEL   = 62;
-
-if (PixelRatio.get() <= 2) {
-  FONT_BACK_LABEL = 60;
-}
-
 
 type Props = {
     onVibration: boolean;
@@ -27,7 +21,7 @@ export default function Counter({onVibration, onTheme, onTimer} : Props){
     
     const [startTime, setStartTime] = useState(false);
     const [stopTime, setStopTime] = useState(false);
-    
+    const [resetTimer,setResetTimer] = useState(false);
 
     var [ isPress, setIsPress ] = React.useState(false);
     
@@ -35,13 +29,15 @@ export default function Counter({onVibration, onTheme, onTimer} : Props){
 
     const handleSumCounter = (counter: number) =>{
                
-        if(counter < 10) {
+        if(counter < 108) {
+            setResetTimer(false);
             setCounter(counter+1);
             onVibration ? Vibration.vibrate(80) : '';     
             !startTime ? setStartTime(true): '';   
             setStopTime(false);   
+            
         }else{            
-            Vibration.vibrate(1200);
+            Vibration.vibrate(1500);            
             stopTime == false ? setStopTime(true): '';
             setStartTime(false) ;            
             setCounter(0);
@@ -57,11 +53,11 @@ export default function Counter({onVibration, onTheme, onTimer} : Props){
       };
 
      const handleResetTimer = ()=>{
-         console.log('reset timer pelo counter');
-
+         setResetTimer(true);
          setStartTime(false) ;  
          setStopTime(false);          
          setCounter(0);
+         
      } 
      const selectTheme = (theme: string) =>{
         
@@ -102,10 +98,18 @@ export default function Counter({onVibration, onTheme, onTimer} : Props){
                         </View>     );    
         }
     }
-    
+
+
+
     return(
         <>
-            {onTimer ? <TimerField  onStart={startTime} onStop={stopTime} onReset={handleResetTimer}/>: false}            
+            <TouchableOpacity 
+                style={onTimer ? styles.timer : styles.timerHidden}
+                onPress={handleResetTimer}>
+                   
+                <TimerField  onStart={startTime} onStop={stopTime} onReset={resetTimer} />
+            </TouchableOpacity>
+            
             {selectTheme(onTheme)}
         </>    
     );
@@ -148,15 +152,15 @@ const styles = StyleSheet.create({
     counterBlack:{
         position:'absolute',
         fontFamily: 'OpenSans_400Regular',
-        marginTop: 175,
+        marginTop:  Platform.OS === 'ios' ? 180 : 175,
         marginLeft: (screenWidth/2)-20,
-        fontSize:FONT_BACK_LABEL,
+        fontSize: Platform.OS === 'ios' ? 64 : 60,
         color: '#444',
         zIndex:2,
         backgroundColor:'#fff',
         width:140,
         height:140,
-        paddingTop:20,
+        paddingTop:24,
         textAlign: 'center',
         borderRadius:70,
         borderWidth:3,
@@ -202,8 +206,25 @@ const styles = StyleSheet.create({
         
         bottom:0,
         zIndex:0
-    }
-    
+    },
+    timer:{         
+          marginTop:-60,   
+          marginLeft:screenWidth-105,
+          width:120,
+          height:40,
+          backgroundColor:'#fff',
+          padding: Platform.OS === 'ios' ? 7 : 5,
+          paddingLeft:15,
+          zIndex:1,    
+          borderRadius:30,
+          borderWidth:4,
+          borderColor:'#ccc'
+      },
+      timerHidden:{
+          width:0,
+          height:0
+      }
+
     
     
 

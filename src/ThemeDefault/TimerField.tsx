@@ -1,6 +1,6 @@
 import React, { useState , useRef, useEffect} from 'react';
 import { Dimensions } from 'react-native';
-import { Text, TouchableOpacity ,StyleSheet} from 'react-native';
+import { Platform, Text, TouchableOpacity ,StyleSheet} from 'react-native';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -9,7 +9,8 @@ const screenWidth = Dimensions.get('window').width;
 type Props = {
     onStart: boolean;
     onStop: boolean;
-    onReset: () => void;
+    onReset: boolean;
+    
 }
 var increment: ReturnType<typeof setTimeout> ;
 
@@ -25,7 +26,7 @@ export default function TimerField({onStart, onStop, onReset}: Props ){
     }, 1000)    
   }
   const handlePause = () => {
-    console.log('reset timer '+formatTime() +' = '+ increment);
+    
     (increment !== null)&&(clearInterval(increment))
     setStopedTime(false);
     setStartedTime(false);
@@ -35,9 +36,10 @@ export default function TimerField({onStart, onStop, onReset}: Props ){
 
   const handleReset = () => {
     handlePause();
-    onReset();
+    
     setTimer(0);
   }
+
   const formatTime = () => {
     const getSeconds = `0${(timer % 60)}`.slice(-2);
     const minutes = Math.floor(timer / 60);
@@ -57,31 +59,19 @@ export default function TimerField({onStart, onStop, onReset}: Props ){
     if(stopedTimer == false && onStop == true){      
       handlePause();
     }    
+    if(onReset){
+      handleReset();
+    }
+
   });  
 
   return (
-      <TouchableOpacity 
-        style={styles.timer}
-        onPress={handleReset}>
+
           <Text style={{fontSize:14 ,fontWeight:'700', elevation:5}}>{formatTime()}</Text>          
-      </TouchableOpacity>
+     
   )
   
 }
 
-const styles = StyleSheet.create({
-  timer:{         
-    marginTop:-60,   
-    marginLeft:screenWidth-105,
-    width:120,
-    height:40,
-    backgroundColor:'#fff',
-    padding: 5,
-    paddingLeft:15,
-    zIndex:1,    
-    borderRadius:30,
-    borderWidth:4,
-    borderColor:'#ccc'
-}
-});
+
 

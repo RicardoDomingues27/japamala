@@ -33,15 +33,14 @@ export default function TimerButton({onTimer}: Props){
       
   const saveTimer = async  (timerData: boolean) =>{
     try{
-        await AsyncStorage.setItem('@timer', JSON.stringify(timerData));
-        
+        await AsyncStorage.setItem('@timer', JSON.stringify(timerData));        
     }catch(e){
         Alert.alert("Error: ", e);
     }
     
 }     
     useEffect(()=>{
-      console.log("focou.");
+      
       if(isFocused){
         getTimer();
       }

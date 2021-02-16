@@ -1,6 +1,6 @@
 import { OpenSans_400Regular } from '@expo-google-fonts/open-sans';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 type Props ={
@@ -71,13 +71,13 @@ const styles = StyleSheet.create({
     },
     text:{
         marginTop:30,
-        fontSize:30,
+        fontSize:Platform.OS == 'ios'? 34 : 30 ,
         color: '#444',
         fontFamily: 'OpenSans_700Bold',
     },
     textForBlack:{
         marginTop:48,
-        fontSize:30,
+        fontSize:Platform.OS == 'ios'? 34 : 30 ,
         color: '#fff',
         fontFamily: 'OpenSans_400Regular',
     },
