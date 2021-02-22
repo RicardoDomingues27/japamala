@@ -17,6 +17,8 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.libraniumtech.japamala",
+      "buildNumber": "1.0.0",
       "supportsTablet": true,
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
@@ -25,12 +27,15 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#f00"
+        "backgroundColor": "#fff"
       },
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~3347511713"
-      },
-      "package": "com.ricardodomingues27.frontmobile"
+        "googleMobileAdsAppId": "ca-app-pub-1588032187629830/5260547849"
+      },      
+      "package": "com.libraniumtech.japamala",
+      "versionCode": 1,
+      "permissions": ["VIBRATE"]
+
     },
     "web": {
       "favicon": "./assets/favicon.png"
