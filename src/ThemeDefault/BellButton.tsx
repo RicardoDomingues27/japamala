@@ -10,34 +10,34 @@ import { TouchableOpacity , Image , StyleSheet ,Dimensions} from "react-native";
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 type Props = {
-    onVibration: (vibration: boolean) => void;
+    onBell: (bell: boolean) => void;
 }
 
-export default function VibrationButton({onVibration}: Props){
-    const [vibration, setVibration] = useState(true);
+export default function BellButton({onBell}: Props){
+    const [bell, setBell] = useState(true);
     const isFocused = useIsFocused();
    
 
-    const getVibration = async() =>{
+    const getBell = async() =>{
         try{
-            const vibration = await AsyncStorage.getItem('@vibration');
+            const bell = await AsyncStorage.getItem('@playBellJapamala');
             
-            if(vibration !== null) {    
-                let vibrationState = JSON.parse(vibration)      ;
-                setVibration(vibrationState)
-                onVibration(vibrationState)  
+            if(bell !== null) {    
+                let bellState = JSON.parse(bell)      ;
+                setBell(bellState)
+                onBell(bellState)  
             }else{
-                setVibration(true); 
+                setBell(true); 
             }
         }catch(e){
             Alert.alert("Error: ",e);
         }
       }
 
-      
-  const saveVibration = async  (vibrationData: boolean) =>{
+
+  const saveBell = async  (bellData: boolean) =>{
     try{
-        await AsyncStorage.setItem('@playBellJapamala', JSON.stringify(vibrationData));
+        await AsyncStorage.setItem('@playBellJapamala', JSON.stringify(bellData));
         
     }catch(e){
         Alert.alert("Error: ", e);
@@ -46,21 +46,22 @@ export default function VibrationButton({onVibration}: Props){
     useEffect(()=>{
       
       if(isFocused){
-        getVibration();
+        getBell();
       }
     },[isFocused]) 
+    
     const handleOnPress = () =>{
         
-        const v = !vibration;
-        setVibration(v);
-        onVibration( v);
-        saveVibration(v);
-        v ?  Vibration.vibrate() : '';
+        const statusBell = !bell;
+        setBell(statusBell);
+        onBell( statusBell);
+        saveBell(statusBell);
+        statusBell ?  Vibration.vibrate() : '';
     }
 
     return(
         <TouchableOpacity 
-            style={vibration ?  styles.button : styles.buttonDisable} 
+            style={bell ?  styles.button : styles.buttonDisable} 
             onPress={handleOnPress}> 
             <Image        
             style={{height:45, width:45}}     

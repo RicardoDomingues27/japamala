@@ -15,6 +15,7 @@ export default function ThemeDefault(){
     const isFocused = useIsFocused();
     const [theme, setTheme] = useState('White');
     const [vibration, setVibration] = useState(true);
+    const [bell, setBell] = useState(true);
     const [timer, setTimer] = useState(true);
 
     const getTheme = async() =>{
@@ -58,14 +59,17 @@ export default function ThemeDefault(){
     const handleOnTimer = (timer: boolean) =>{
       setTimer(timer);
   }
+    const handleOnBell = (bell: boolean) =>{
+        setBell(bell);
+    }
     //<FabButton onTheme={handleChangeTheme}/>
     return(
         <>
              
             <Header onTheme={theme} />           
-            <Counter onVibration={vibration} onTheme ={theme} onTimer={timer}/>            
+            <Counter onVibration={vibration} onTheme ={theme} onTimer={timer} onBell={bell}/>            
             <VibrationButton onVibration={handleOnVibration}/>
-            <BellButton onVibration={handleOnVibration}/>
+            <BellButton onBell={handleOnBell}/>
             <TimerButton onTimer={handleOnTimer}/>
             <Footer />
         </>

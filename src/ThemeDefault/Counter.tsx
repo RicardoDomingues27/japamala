@@ -14,9 +14,10 @@ type Props = {
     onVibration: boolean;
     onTheme: string;
     onTimer: boolean;
+    onBell: boolean;
 }
 
-export default function Counter({onVibration, onTheme, onTimer} : Props){
+export default function Counter({onVibration, onTheme, onTimer, onBell} : Props){
     const [counter, setCounter] = useState(0);
     
     const [startTime, setStartTime] = useState(false);
@@ -29,15 +30,18 @@ export default function Counter({onVibration, onTheme, onTimer} : Props){
 
     const handleSumCounter = (counter: number) =>{
                
-        if(counter < 108) {
+        if(counter < 10) {
             setResetTimer(false);
             setCounter(counter+1);
-            onVibration ? Vibration.vibrate(80) : '';     
+            onVibration ? Vibration.vibrate(80) : ''; 
+            
+            onBell ? tocarSino() : '';  
             !startTime ? setStartTime(true): '';   
             setStopTime(false);   
             
         }else{            
-            Vibration.vibrate(1500);            
+            onVibration ? Vibration.vibrate(1500): tocarSinoLongo();
+
             stopTime == false ? setStopTime(true): '';
             setStartTime(false) ;            
             setCounter(0);
@@ -103,13 +107,24 @@ export default function Counter({onVibration, onTheme, onTimer} : Props){
             const {
               sound: soundObject,
               status,
-            } = await Audio.Sound.createAsync(require('../../assets/sino.mp3'), { shouldPlay: true });
+            } = await Audio.Sound.createAsync(require('../../assets/som-japamala.mp3'), { shouldPlay: true });
             // Your sound is playing!
           } catch (error) {
             // An error occurred!
           }    
     }
 
+    const tocarSinoLongo  = async() =>{
+        try {
+            const {
+              sound: soundObject,
+              status,
+            } = await Audio.Sound.createAsync(require('../../assets/som-longo-japamala.mp3'), { shouldPlay: true });
+            // Your sound is playing!
+          } catch (error) {
+            // An error occurred!
+          }    
+    }
 
     return(
         <>
