@@ -8,6 +8,7 @@ import { Alert } from 'react-native';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import VibrationButton from './VibrationButton';
+import BellButton from './BellButton';
 import TimerButton from './TimerButton';
 
 export default function ThemeDefault(){
@@ -64,6 +65,7 @@ export default function ThemeDefault(){
             <Header onTheme={theme} />           
             <Counter onVibration={vibration} onTheme ={theme} onTimer={timer}/>            
             <VibrationButton onVibration={handleOnVibration}/>
+            <BellButton onVibration={handleOnVibration}/>
             <TimerButton onTimer={handleOnTimer}/>
             <Footer />
         </>

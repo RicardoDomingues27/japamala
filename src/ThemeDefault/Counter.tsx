@@ -3,7 +3,7 @@ import {   Platform , Image, StyleSheet, Text,  Vibration, View } from 'react-na
 import { TouchableOpacity } from 'react-native';
 import { Dimensions , PixelRatio} from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-
+import { Audio } from 'expo-av';
 
 import TimerField from './TimerField';
 
@@ -98,7 +98,17 @@ export default function Counter({onVibration, onTheme, onTimer} : Props){
                         </View>     );    
         }
     }
-
+    const tocarSino  = async() =>{
+        try {
+            const {
+              sound: soundObject,
+              status,
+            } = await Audio.Sound.createAsync(require('../../assets/sino.mp3'), { shouldPlay: true });
+            // Your sound is playing!
+          } catch (error) {
+            // An error occurred!
+          }    
+    }
 
 
     return(
@@ -133,7 +143,7 @@ const styles = StyleSheet.create({
     },
     containerWhite:{
         position: 'absolute',
-        marginTop:170,
+        marginTop:140,
         width: screenWidth,
         height: screenHeight,        
         justifyContent: 'flex-start',
@@ -215,7 +225,7 @@ const styles = StyleSheet.create({
           backgroundColor:'#fff',
           padding: Platform.OS === 'ios' ? 7 : 5,
           paddingLeft:15,
-          zIndex:1,    
+          zIndex:2,    
           borderRadius:30,
           borderWidth:4,
           borderColor:'#ccc'

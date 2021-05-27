@@ -67,7 +67,7 @@ export default function TimerField({onStart, onStop, onReset}: Props ){
 
   return (
 
-          <Text style={{fontSize:14 ,fontWeight:'700', elevation:5}}>{formatTime()}</Text>          
+          <Text style={{fontSize:12 ,fontWeight:'700', elevation:5}}>{formatTime()}</Text>          
      
   )
   

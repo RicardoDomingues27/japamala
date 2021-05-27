@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "japamala",
+    "name": "Japamala 108",
     "slug": "japamala",
     "version": "1.0.1",
     "orientation": "portrait",
@@ -21,7 +21,8 @@
       "buildNumber": "1.0.1",
       "supportsTablet": true,
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+        "googleMobileAdsAppId": "ca-app-pub-1588032187629830~7414989774xxxx"
+        
       }
     },
     "android": {
@@ -30,10 +31,10 @@
         "backgroundColor": "#fff"
       },
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-1588032187629830/5260547849"
+        "googleMobileAdsAppId": "ca-app-pub-1588032187629830~8788443904"
       },      
       "package": "com.libraniumtech.japamala",
-      "versionCode": 2,
+      "versionCode": 3,
       "permissions": ["VIBRATE"]
 
     },

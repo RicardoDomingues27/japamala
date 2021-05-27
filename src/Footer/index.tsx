@@ -12,17 +12,13 @@ const screenWidth = Dimensions.get('screen').width;
 export default function Footer(){
     return (
         <>
-        <LinearGradient colors={['#fff', '#4B0082']}
-            style={styles.container}>
-
-        </LinearGradient>
         <AdMobBanner
             style={styles.bannerAdmob}
             bannerSize="fullBanner"
-            adUnitID="ca-app-pub-3940256099942544/6300978111" 
-            
-            servePersonalizedAds 
-            onDidFailToReceiveAdWithError={(error) => console.log(error)} />
+            //adUnitID="ca-app-pub-1588032187629830/5260547849"             
+            adUnitID="xxx"             
+            servePersonalizedAds={false}
+            onDidFailToReceiveAdWithError={(error) => console.log("AdMob error: "+error)} />
         </>
     );
 }
@@ -38,10 +34,6 @@ const styles = StyleSheet.create({
     bannerAdmob:{
         position:'absolute',
         bottom:0,
-        width: screenWidth,
         zIndex:2
-        
-
-        
     },
 });
